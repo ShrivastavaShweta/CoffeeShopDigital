@@ -3,7 +3,7 @@ package org.launchcode.CoffeeShopDigital.controller;
 import org.launchcode.CoffeeShopDigital.model.DrinkTypes;
 import org.launchcode.CoffeeShopDigital.model.MilkType;
 import org.launchcode.CoffeeShopDigital.model.Toppings;
-import org.launchcode.CoffeeShopDigital.model.coffeetea.Flavors;
+import org.launchcode.CoffeeShopDigital.model.Flavors;
 import org.launchcode.CoffeeShopDigital.repository.DrinkTypesRepo;
 import org.launchcode.CoffeeShopDigital.repository.FlavorsRepo;
 import org.launchcode.CoffeeShopDigital.repository.MilkTypeRepo;

@@ -1,13 +1,15 @@
-package org.launchcode.CoffeeShopDigital.model.coffeetea;
+package org.launchcode.CoffeeShopDigital.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Flavors {
-    @javax.persistence.Id
+
+    @Id
     @GeneratedValue
-    private int Id;
+    private int id;
 
     private String name;
 
