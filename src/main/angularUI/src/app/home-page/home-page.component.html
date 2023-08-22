@@ -4,9 +4,10 @@
             <nav class="nav">
                 <ul>
                     <li class="active"><h3><a href="#">MENU</a></h3></li>
-                    <li><a href="#">Coffee</a></li><br>
-                    <li><a href="#">TEA</a></li><br>
-                    <li><a href="#">PASTRY</a></li><br>
+                    <li><a routerLink="/create-coffee">Coffee</a></li><br>
+                    <li><a routerLink="/create-coffee">TEA</a></li><br>
+                    <li><a routerLink="/create-coffee">PASTRY</a></li><br>
+
                 </ul>
             </nav>
         </aside>
@@ -28,7 +29,7 @@
                             <tr id="coffeeItems">
                                 <td>
                                     <div class="item"(click)="gotoOrderItem()">
-                                        <a routerLink="create-coffee" class="item" routerLinkActive="active">
+                                        <a routerLink="/create-coffee" class="item" routerLinkActive="active">
                                             <img src="/assets/images/Latte.jpg"></a>
                                         <span class="caption">Latte</span>
                                     </div>

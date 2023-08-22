@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Products } from '../models/products';
 
 
 @Component({
@@ -8,7 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+
   
+  products!: Products[];
 
   constructor(private router: Router) { }
 
