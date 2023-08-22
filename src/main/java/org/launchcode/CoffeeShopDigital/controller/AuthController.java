@@ -5,10 +5,10 @@ import org.launchcode.CoffeeShopDigital.dto.request.RegisterAdminReq;
 import org.launchcode.CoffeeShopDigital.dto.request.RegisterUserReq;
 import org.launchcode.CoffeeShopDigital.dto.response.JwtResp;
 import org.launchcode.CoffeeShopDigital.dto.response.MessageResp;
-import org.launchcode.CoffeeShopDigital.model.ERole;
-import org.launchcode.CoffeeShopDigital.model.Role;
+//import org.launchcode.CoffeeShopDigital.model.ERole;
+//import org.launchcode.CoffeeShopDigital.model.Role;
 import org.launchcode.CoffeeShopDigital.model.User;
-import org.launchcode.CoffeeShopDigital.repository.RoleRepository;
+//import org.launchcode.CoffeeShopDigital.repository.RoleRepository;
 import org.launchcode.CoffeeShopDigital.repository.UserRepository;
 import org.launchcode.CoffeeShopDigital.security.jwt.JwtUtils;
 import org.launchcode.CoffeeShopDigital.security.service.UserDetailsImpl;
@@ -33,136 +33,148 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    @Autowired
-    JwtUtils jwtUtils;
-
-    private static long guestId = 0;
-
-
-    @CrossOrigin(allowCredentials = "true", maxAge = 3600)
-    @GetMapping("/user-details")
-    public ResponseEntity<?> getUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!authentication.isAuthenticated()) {
-            ArrayList<Object> respBody = new ArrayList<>();
-            respBody.add(new UserDetailsImpl(guestId, null, "guest${guestId}", null, null, null, null));
-            respBody.add(new MessageResp("No user is signed in; proceeding as Guest"));
-            guestId++;
-
-            return ResponseEntity.ok()
-                    .body(respBody);
-        }
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getDetails();
-        return ResponseEntity.ok(userDetails);
-
-    }
-
-    @CrossOrigin(allowCredentials = "true", maxAge = 3600)
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginReq loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-
-
-
-        return ResponseEntity.ok(new JwtResp(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+    public ResponseEntity<?> loginUser(@RequestBody User userData){
+        User user = userRepository.findByEmail(userData.getEmail());
+        if (user.getPassword().equals(userData.getPassword())){
+            return ResponseEntity.ok(user);
+        }
+        return (ResponseEntity<?>) ResponseEntity.internalServerError();
     }
 
-    @PostMapping("/register/user")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserReq registerUserReq) {
-        if (userRepository.existsByEmail(registerUserReq.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResp("Error: Email is already signed up!"));
-        }
-        //Create new User Account
-        Set<String> strRoles = registerUserReq.getRole();
-        Set<Role> roles = new HashSet<>();
-        User user = new User(registerUserReq.getName(),
-                registerUserReq.getBirthday(),
-                registerUserReq.getEmail(),
-                encoder.encode(registerUserReq.getPassword()),
-                roles);
+//    @Autowired
+//    AuthenticationManager authenticationManager;
+//
 
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        }
-        user.setRoles(roles);
-        userRepository.save(user);
+//
+//    @Autowired
+//    RoleRepository roleRepository;
+//
+//    @Autowired
+//    PasswordEncoder encoder = new BCryptPasswordEncoder();
+//
+//    @Autowired
+//    JwtUtils jwtUtils;
+//
+//    private static long guestId = 0;
+//
+//
+//    @CrossOrigin(allowCredentials = "true", maxAge = 3600)
+//    @GetMapping("/user-details")
+//    public ResponseEntity<?> getUserDetails() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (!authentication.isAuthenticated()) {
+//            ArrayList<Object> respBody = new ArrayList<>();
+//            respBody.add(new UserDetailsImpl(guestId, null, "guest${guestId}", null, null, null, null));
+//            respBody.add(new MessageResp("No user is signed in; proceeding as Guest"));
+//            guestId++;
+//
+//            return ResponseEntity.ok()
+//                    .body(respBody);
+//        }
+//
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getDetails();
+//        return ResponseEntity.ok(userDetails);
+//
+//    }
+//
+//    @CrossOrigin(allowCredentials = "true", maxAge = 3600)
+//    @PostMapping("/login")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginReq loginRequest) {
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtUtils.generateJwtToken(authentication);
+//
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//        List<String> roles = userDetails.getAuthorities().stream()
+//                .map(item -> item.getAuthority())
+//                .collect(Collectors.toList());
+//
+//
+//
+//
+//        return ResponseEntity.ok(new JwtResp(jwt,
+//                userDetails.getId(),
+//                userDetails.getUsername(),
+//                userDetails.getEmail(),
+//                roles));
+//    }
 
-        return ResponseEntity.ok(new MessageResp("User registered successfully!"));
-    }
+//    @PostMapping("/register/user")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserReq registerUserReq) {
+//        if (userRepository.existsByEmail(registerUserReq.getEmail())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResp("Error: Email is already signed up!"));
+//        }
+//        //Create new User Account
+//        Set<String> strRoles = registerUserReq.getRole();
+//        Set<Role> roles = new HashSet<>();
+//        User user = new User(registerUserReq.getName(),
+//                registerUserReq.getBirthday(),
+//                registerUserReq.getEmail(),
+//                encoder.encode(registerUserReq.getPassword()),
+//                roles);
+//
+//        if (strRoles == null) {
+//            Role userRole = roleRepository.findByName(ERole.USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//            roles.add(userRole);
+//        }
+//        user.setRoles(roles);
+//        userRepository.save(user);
+//
+//        return ResponseEntity.ok(new MessageResp("User registered successfully!"));
+//    }
 
-    @PostMapping("/register/admin")
-    public ResponseEntity<?> registerAdmin(@Valid @RequestBody RegisterAdminReq registerAdminReq) {
-        if (userRepository.existsByEmail(registerAdminReq.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResp("Error: User already exists, upgrade ${registerAdminReq.getName()} to Admin instead!"));
-        }
-        // Create new admin User account
-        Set<String> strRoles = registerAdminReq.getRole();
-        Set<Role> roles = new HashSet<>();
-        User user = new User(registerAdminReq.getName(),
-                registerAdminReq.getBirthday(),
-                registerAdminReq.getEmail(),
-                encoder.encode(registerAdminReq.getPassword()),
-                roles);
-
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                if (role.equals("admin")) {
-                    Role adminRole = roleRepository.findByName(ERole.ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(adminRole);
-                }
-                if (role.equals("user")) {
-                    Role userRole = roleRepository.findByName(ERole.USER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(userRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResp("Admin registered successfully!"));
-    }
+//    @PostMapping("/register/admin")
+//    public ResponseEntity<?> registerAdmin(@Valid @RequestBody RegisterAdminReq registerAdminReq) {
+//        if (userRepository.existsByEmail(registerAdminReq.getEmail())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResp("Error: User already exists, upgrade ${registerAdminReq.getName()} to Admin instead!"));
+//        }
+//        // Create new admin User account
+//        Set<String> strRoles = registerAdminReq.getRole();
+//        Set<Role> roles = new HashSet<>();
+//        User user = new User(registerAdminReq.getName(),
+//                registerAdminReq.getBirthday(),
+//                registerAdminReq.getEmail(),
+//                encoder.encode(registerAdminReq.getPassword()),
+//                roles);
+//
+//        if (strRoles == null) {
+//            Role userRole = roleRepository.findByName(ERole.USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//            roles.add(userRole);
+//        } else {
+//            strRoles.forEach(role -> {
+//                if (role.equals("admin")) {
+//                    Role adminRole = roleRepository.findByName(ERole.ADMIN)
+//                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                    roles.add(adminRole);
+//                }
+//                if (role.equals("user")) {
+//                    Role userRole = roleRepository.findByName(ERole.USER)
+//                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                    roles.add(userRole);
+//                }
+//            });
+//        }
+//
+//        user.setRoles(roles);
+//        userRepository.save(user);
+//
+//        return ResponseEntity.ok(new MessageResp("Admin registered successfully!"));
+//    }
 
     //TODO: Add upgradeUser method to add ADMIN role to an existing User as an Admin
     //TODO: Add logoutUser method to logout

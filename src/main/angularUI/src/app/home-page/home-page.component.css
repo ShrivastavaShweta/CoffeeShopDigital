@@ -6,12 +6,38 @@ html {
   background: #5e42a6;
 }
 
+#logo-style {
+  margin-left: 45%;
+  margin-top: 0;
+  border-radius: 50%;
+}
+
+.button {
+  float: right;
+  margin: 20px;
+  margin-top: 35px;
+  padding: 10px;
+}
+
+.submitBtn {
+  margin-top: 0;
+  width: 100px;
+  transition-duration: 0.4s;
+  border-radius: 10px;
+}
+
+.submitBtn:hover {
+  background-color: #2a66b0; /* Blue */
+  color: white;
+}
+
 .sidebar {
   position: fixed;
-  width: 15%;
+  width: 5%;
   height: 50vh;
   background: clear;
-  font-size: 0.65em;
+  font-size: 10%;
+
 }
 
 .nav {
@@ -29,22 +55,32 @@ html {
 }
 
 body{
-  background-image: url("/assets/images/coffe-shop-background.jpg");
+  background-image: url("/assets/images/.coffee-cup");
   background-size: cover;
-  height: 2200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
+
 h1 {
-  font-size: 50px;
+  font-size: 30px;
   text-align: center;
   color:black;
   font-family: Goudy Old Style;
 }
+
 .submit {
   text-align: right;
 }
-form{
+
+.form{
   text-align: right;
 }
+
 .menu{
   height:1000px;
   margin-left: auto;
@@ -67,12 +103,13 @@ form{
 
 .gallery img {
   width: 100%;
-  max-width: 350px;
-  height: 300px;
+  max-width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
   margin:5px;
 }
+
 
 .gallery::after {
   content: "";
@@ -86,10 +123,32 @@ form{
   
 }
 
-.container1 {
-  height: 100vh;
+.container2 {
+  float: left;
 }
-.about-us {
+
+.links {
+  border: 2px solid black;
+  padding: 10px;
+  width: 970px;
+  height: 50px;
+  position: absolute;
+  bottom: 3;
+  top: 180%;
+  transform: translateY(-50%);
+}
+
+.links p {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* .container1 {
+  height: 100vh;
+} */
+
+/* .about-us {
   border: 2px solid black;
   padding: 10px;
   width: 200px;
@@ -104,24 +163,11 @@ form{
   font-size: 18px;
   line-height: 1.5;
   margin: 0;
-}
+} */
 
-.container {
+/* .container {
   height: 100vh;
-}
-.links {
-  border: 2px solid black;
-  padding: 10px;
-  width: 970px;
-  height: 50px;
-  position: absolute;
-  bottom: 3;
-  top: 180%;
-  transform: translateY(-50%);
-}
-.links p {
-  font-size: 18px;
-  line-height: 1.5;
-  text-align: center;
-}
+} */
+
+
 

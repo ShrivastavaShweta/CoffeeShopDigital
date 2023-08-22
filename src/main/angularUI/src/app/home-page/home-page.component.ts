@@ -15,7 +15,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
   gotoOrderItem() {
-    this.router.navigate(['/order-item-specifics']);
+    this.router.navigate(['/create-coffee']);
   }
   gotoUserLogin() {
     this.router.navigate(['/user-login']);

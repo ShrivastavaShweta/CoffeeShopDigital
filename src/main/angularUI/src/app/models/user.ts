@@ -3,6 +3,6 @@ export class User {
     password!: string;
     name?: string;
     birthday?: string;
-    roles?: string[];
+    //roles?: string[];
 
 }

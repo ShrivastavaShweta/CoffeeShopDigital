@@ -11,50 +11,38 @@ import java.util.Set;
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String email;
+
+    @NotBlank
+    @Size(min = 8, max = 120)
+    private String password;
+
     @NotBlank
     private String name;
+
     @NotBlank
     @Pattern(regexp = "^(((0[13578]|(10|12))/(0[1-9]|[1-2][0-9]|3[0-1]))|(02/(0[1-9]|[1-2][0-9]))|((0[469]|11)/(0[1-9]|[1-2][0-9]|30)))$",
             message = "Enter birthday in format 'DD/MM', including the forward slash")
     private String birthday;
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-    private String username;
-    @NotBlank
-    @Size(min = 8, max = 120)
-    private String password;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "user_roles",
-                joinColumns = @JoinColumn(name = "user_ida"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable( name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_ida"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles = new HashSet<>();
 
     public User() { }
-    public User(String name, String birthday, String email, String password, Set<Role> roles) {
+    public User(String name, String birthday, String email, String password) {
         this.name = name;
         this.birthday = birthday;
         this.email = email;
         this.password = password;
-        this.roles = roles;
-    }
-
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
+        //this.roles = roles;
     }
 
     public String getName() {
@@ -85,10 +73,30 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id
+
+//    private String username;
+
+    //    public long getId() {
+//        return id;
+//    }
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 }
