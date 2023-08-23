@@ -8,14 +8,25 @@
 </head>
 <body>
   <header>
-    <div class ="helloname">Hello, Name</div>
-    <div class ="logout">Logout</div>
+    <div class ="helloname">Hello There!</div>
+    <div class ="logout">
+      <form (ngSubmit)="logout()">
+        <button type="submit">logout</button>
+      </form>
+    </div>
     <div class="DreamyLogo">
       <img src="\assets\images\DJC logo.png" alt="DreamyLogo">
     </div>
   </header>
+
   <section class="gallery">
-    <div class="item-1"(click)="gotoOrderItem()">
+    <div class="grid-container">
+      <div *ngFor="let product of products" class="grid-item" (click)="gotoOrderItem()">
+        <img [src]="product.product_photo">
+        <p>{{ product.product_name }}<span class="price">${{ product.product_price }}</span></p>
+      </div>
+    </div>
+    <!-- <div class="item-1"(click)="gotoOrderItem()">
       <a routerLink="order-item-specifics" class="item-1" routerLinkActive="active">
       <img src="\assets\images\Cappuccino.jpg" alt="item 1">
     </a>
@@ -80,7 +91,7 @@
         <label>
           <input type="checkbox" name="item-1-checkbox">
         </label></div>
-    </div>
+    </div> -->
   </section>
   <section class="menu">
     <div class="container">

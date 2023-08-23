@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import {}
+import { Products } from 'src/app/models/products';
 
 @Component({
   selector: 'app-user-homepage',
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
 })
 export class UserHomepageComponent implements OnInit {
 
+  products!: Products[];
+
   constructor(private router: Router) { 
   }
 
   ngOnInit(): void {
   }
   gotoOrderItem() {
-    this.router.navigate(['/order-item-specifics']);
+    this.router.navigate(['/create-coffee']);
+  }
+
+  logout() {
+    this.router.navigate(['/home-page']);
   }
 }
