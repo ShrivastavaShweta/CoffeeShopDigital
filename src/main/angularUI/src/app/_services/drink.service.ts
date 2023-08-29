@@ -7,21 +7,21 @@ import { DrinkTypes } from '../models/drink-types';
   providedIn: 'root'
 })
 export class DrinkService {
-  static getDrinkById(arg0: any): Drink {
-    throw new Error('Method not implemented.');
-  }
+  // static getDrinkById(arg0: any): Drink {
+  //   throw new Error('Method not implemented.');
+  // }
 
-  constructor() { }
+  // constructor() { }
 
-  getDrinkById(id: number): DrinkTypes {
-    return this.getAll().find(drink => drink.id == id)!;
-  }
+  // getDrinkById(id: number): DrinkTypes {
+  //   return this.getAll().find(drink => drink.id == id)!;
+  // }
 
-  getDrinkByName(name: string): DrinkTypes {
-    return DrinkTypes.drinkTypesList.find(drink => drink.name == name)!;
-  }
+  // getDrinkByName(name: string): DrinkTypes {
+  //   return DrinkTypes.drinkTypesList.find(drink => drink.name == name)!;
+  // }
 
-  getAll(): DrinkTypes[] {
-    return DrinkTypes.drinkTypesList;
-  }
+  // getAll(): DrinkTypes[] {
+  //   return DrinkTypes.drinkTypesList;
+  // }
 }

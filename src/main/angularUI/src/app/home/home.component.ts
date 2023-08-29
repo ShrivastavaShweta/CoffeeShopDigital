@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DrinkService } from '../_services/drink.service';
 import { Drink } from '../models/Drink';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DrinkTypes } from '../models/drink-types';
+import { MenuService } from '../_services/menu.service';
 
 @Component({
   selector: 'app-home',
@@ -11,16 +12,23 @@ import { DrinkTypes } from '../models/drink-types';
 })
 export class HomeComponent implements OnInit {
 
-  drinkTypes: DrinkTypes[] = [];
-  constructor(private drinkService:DrinkService, private route:ActivatedRoute) { }
+  drinkTypes!: DrinkTypes[];
+  constructor(private router: Router, private menuService: MenuService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if(params['searchTerm'])
-      this.drinkTypes = this.drinkService.getAll().filter(food => food.name.toLowerCase().includes(params['searchTerm'].toLowerCase()))
-      else
-      this.drinkTypes = this.drinkService.getAll();
+
+    this.menuService.getDrinkTypes().subscribe((data: DrinkTypes[]) => {
+      console.log(data);
+      this.drinkTypes = data;
+      console.log(this.drinkTypes)
     })
+
+    // this.route.params.subscribe(params => {
+    //   if(params['searchTerm'])
+    //   this.drinkTypes = this.drinkService.getAll().filter(food => food.name.toLowerCase().includes(params['searchTerm'].toLowerCase()))
+    //   else
+    //   this.drinkTypes = this.drinkService.getAll();
+    //})
   }
 
 }
