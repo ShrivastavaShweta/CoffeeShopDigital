@@ -6,7 +6,7 @@
 
 .background::before{
     content: '';
-    background-image:url("../../../src/assets/images/christina-rumpf-LMzwJDu6hTE-unsplash.jpg");
+    /* background-image:url("../../../src/assets/images/christina-rumpf-LMzwJDu6hTE-unsplash.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18,7 +18,7 @@
     opacity: 0.2;
 }
 
-img {
+/* .img {
     padding: 20px;
     width: 150px;
     height: 150px;
@@ -26,7 +26,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
-}
+} */
 
 .home {
     position: absolute;

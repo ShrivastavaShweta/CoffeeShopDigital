@@ -1,10 +1,10 @@
 <body>
-<!--    <div class="background">-->
-
+    <div class="background">
+        
         <div class="coffee-cup">
             <!-- add code to display the selected drink -->
-            <img src="{{ selectedDrink?.imageUrl }}">
-            <p>{{ selectedDrink?.name }}</p>
+            <!-- <img src="{{selectedDrink.imageUrl}}">
+            <p>{{selectedDrink.name}}</p> -->
         </div>
         <div class="row">
             <div class="column">
@@ -13,20 +13,15 @@
                     <div class="align">
                         <label for="milk">Milk</label>
                         <select name="milk" (change)="selectedMilkHandler($event)" id="milk">
-                            <option *ngFor="let milk of milkTypes" [value]="milk.name" >{{milk.name}}</option>
+                            <option *ngFor="let milk of milkTypes" [value]="milk" >{{milk.name}}</option>
                         </select>
                     </div>
-
-                    <label>Flavors<div>
-                        <div *ngFor="let flavor of flavors">
-                            <label>{{ flavor.name }}
-                                <input  type="checkbox" name="flavor"
-                                        value="{{ flavor.name }}" />
-                            </label>
-                        </div>
-                        
-                    </div></label>
-                    
+                    <div class="align">
+                        <label for="flavor">Flavors</label>
+                        <select name="flavor" (change)="selectedFlavorsHandler($event)" id="flavor">
+                            <option *ngFor="let flavor of flavors" >{{flavor.name}}</option>
+                        </select>
+                    </div>
                     <div class="align">
                         <label for="topping">Toppings</label>
                         <select name="topping" (change)="selectedToppingsHandler($event)" id="topping">
@@ -44,9 +39,7 @@
                         </div>
                         <div>Small
                             <label>
-                                <input
-                                  type="radio" name="item-1-checkbox" (click)="updateSize('small')"
-                                  id="small" value="small">
+                                <input type="radio" name="item-1-checkbox" (click)="updateSize('small')" id="size">
                             </label>
                         </div>
                     </div>
@@ -56,9 +49,7 @@
                         </div>
                         <div>Medium
                             <label>
-                                <input
-                                  type="radio" name="item-1-checkbox" (click)="updateSize('Medium')"
-                                  id="medium" value="medium">
+                                <input type="radio" name="item-1-checkbox" (click)="updateSize('Medium')" id="size">
                             </label>
                         </div>
                     </div>
@@ -68,16 +59,14 @@
                         </div>
                         <div>Large
                             <label>
-                                <input
-                                  type="radio" name="item-1-checkbox" (click)="updateSize('Large')"
-                                  id="large" value="large">
+                                <input type="radio" name="item-1-checkbox" (click)="updateSize('Large')" id="size">
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<!--    </div>-->
-        <button (click)="goToOrder()">Order Now</button>
-
+        
+        <button class="submit" (click)="order()">Order Now</button>
+    </div>
 </body>

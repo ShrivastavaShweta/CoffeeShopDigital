@@ -18,13 +18,13 @@ export class CreateCoffeeComponent implements OnInit {
 
   user: User = new User();
 
-  milkTypes: MilkTypes[] = MilkTypes.milkTypesList;
+  milkTypes!: MilkTypes[];
 
-  flavors: SweetTypes[] = SweetTypes.sweetTypesList;
+  flavors!: Flavors[];
 
   toppings!: Toppings[];
 
-  selectedDrink: undefined | DrinkTypes;
+  selectedDrink!: DrinkTypes;
 
   // milks = ["Please choose an option","Heavy Cream", "Vanilla Sweet Cream", "Non Fat Milk", "2% Milk", "Whole Milk", "Half & Half", "Almond", "Coconut", "Oatmilk", "Soy"];
 
@@ -32,9 +32,9 @@ export class CreateCoffeeComponent implements OnInit {
 
   //toppings = ["Please choose an option","Caramel Crunch", "Cookie Crumble", "Chocolate Mint Cookie Sprinkle"];
 
-  selectedMilk = [];
+  selectedMilk = "";
   selectedFlavors = [];
-  selectedToppings = [];
+  selectedToppings = "";
   selectedSize = "";
 
   message: string = "";
@@ -47,6 +47,19 @@ export class CreateCoffeeComponent implements OnInit {
     drinkId && this.menuService.getDrinkById(drinkId).subscribe((data) => {
       this.selectedDrink = data;
     })
+
+    this.menuService.getMilkTypes().subscribe((data: MilkTypes[]) => {
+      this.milkTypes = data;
+    })
+
+    this.menuService.getFlavors().subscribe((data: Flavors[]) => {
+      this.flavors = data;
+    })
+
+    this.menuService.getToppings().subscribe((data: Toppings[]) => {
+      this.toppings = data;
+    })
+
   }
 
   updateSize(size: string){
@@ -71,11 +84,8 @@ export class CreateCoffeeComponent implements OnInit {
 
   order(){
     console.log("button clicked");
+    alert("Thank you for ordering. Milk selected is " + this.selectedMilk + " milk. The flavor added is " + this.selectedFlavors + " .With topping added is " + this.selectedToppings);
     this.router.navigate(['/order-complete'])
-  }
-
-  goToOrder(){
-    //this.router.navigate(['']);
   }
 
 }
