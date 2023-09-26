@@ -84,8 +84,12 @@ export class CreateCoffeeComponent implements OnInit {
 
   order(){
     console.log("button clicked");
-    alert("Thank you for ordering. Milk selected is " + this.selectedMilk + " milk. The flavor added is " + this.selectedFlavors + " .With topping added is " + this.selectedToppings);
-    this.router.navigate(['/order-complete'])
+    if(this.selectedSize === ""){
+      alert("Please select a size")
+    } else {
+      alert("Thank you for ordering.The flavor added is " + this.selectedFlavors + " .With topping added is " + this.selectedToppings);
+      this.router.navigate(['/order-complete'])
+    }
   }
 
 }
